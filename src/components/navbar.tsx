@@ -1,4 +1,5 @@
 // TODO: Use react-router-dom to navigate between pages if app grows to more than one page
+import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
   return (
@@ -9,9 +10,9 @@ export default function Navbar() {
         className="h-8 inline mr-2 cursor-pointer"
       />
       <div className="flex items-center">
-        <button className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
-          Button
-        </button>
+        <div>
+          <Button onClick={() => console.log("Clicked")}>Connect</Button>
+        </div>
       </div>
     </nav>
   );
