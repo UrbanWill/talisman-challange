@@ -1,5 +1,13 @@
+import Layout from "./components/layout";
+
 function App() {
-  return <h1 className="text-3xl font-bold underline">Challange!</h1>;
+  return (
+    <Layout>
+      <div className="bg-red-500">
+        <h1 className="text-3xl font-bold underline">Challenge!</h1>
+      </div>
+    </Layout>
+  );
 }
 
 export default App;
