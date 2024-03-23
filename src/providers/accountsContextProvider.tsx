@@ -6,15 +6,20 @@ import {
   useEffect,
 } from "react";
 import { useWallets } from "@polkadot-onboard/react";
-import { Account } from "@polkadot-onboard/core";
+import { Account, BaseWallet } from "@polkadot-onboard/core";
+import { ApiPromise, WsProvider } from "@polkadot/api";
+
+import { ROCOCO_RPC_URL } from "@/utils/constants";
 
 interface AccountsContextType {
   isConnected: boolean;
   accounts: Account[];
   selectedAccount: Account | null;
+  api: ApiPromise | null;
   setSelectedAccount: (account: Account) => void;
   handleConnect: () => Promise<void>;
   handleDisconnect: () => Promise<void>;
+  wallet: BaseWallet | null;
 }
 
 export const AccountsContext = createContext<AccountsContextType | undefined>(
@@ -30,6 +35,10 @@ export const AccountsProvider = ({ children }: AccountsProviderProps) => {
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
   const [isBusy, setIsBusy] = useState<boolean>(false);
+  const [wallet, setWallet] = useState<BaseWallet | null>(null);
+
+  const [api, setApi] = useState<ApiPromise | null>(null);
+
   const { wallets } = useWallets();
 
   const talismanWallet = wallets?.find(
@@ -50,11 +59,26 @@ export const AccountsProvider = ({ children }: AccountsProviderProps) => {
       }
     });
 
+    if (talismanWallet) {
+      setWallet(talismanWallet);
+    }
+
     // unsubscribe to prevent memory leak
     return () => {
       promUnsubscribe?.then((unsub) => unsub());
     };
   }, [isConnected, talismanWallet]);
+
+  useEffect(() => {
+    const setupApi = async () => {
+      const provider = new WsProvider(ROCOCO_RPC_URL);
+      const api = await ApiPromise.create({ provider });
+
+      setApi(api);
+    };
+
+    setupApi();
+  }, []);
 
   const handleConnect = useCallback(async () => {
     if (!isBusy) {
@@ -86,6 +110,8 @@ export const AccountsProvider = ({ children }: AccountsProviderProps) => {
     isConnected,
     accounts,
     selectedAccount,
+    api,
+    wallet,
     setSelectedAccount,
     handleConnect,
     handleDisconnect,

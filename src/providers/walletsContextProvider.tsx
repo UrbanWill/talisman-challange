@@ -3,7 +3,7 @@ import { WalletAggregator } from "@polkadot-onboard/core";
 import { InjectedWalletProvider } from "@polkadot-onboard/injected-wallets";
 import { extensionConfig } from "@/utils/extensionConfig";
 
-const APP_NAME = "Talisman Challenge";
+import { APP_NAME } from "@/utils/constants";
 
 export default function WalletsContextProvider({
   children,

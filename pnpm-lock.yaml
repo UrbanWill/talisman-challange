@@ -17,6 +17,9 @@ dependencies:
   '@polkadot-onboard/wallet-connect':
     specifier: ^1.1.0
     version: 1.1.0(@types/react@18.2.67)(react@18.2.0)
+  '@polkadot/api':
+    specifier: ^10.12.4
+    version: 10.12.4
   '@radix-ui/react-dropdown-menu':
     specifier: ^2.0.6
     version: 2.0.6(@types/react-dom@18.2.22)(@types/react@18.2.67)(react-dom@18.2.0)(react@18.2.0)
