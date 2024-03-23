@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useWalletsContext } from "@/hooks/useWalletsContext";
 import { DropdownMenuRadioMenu } from "./dropdown-radio-menu";
+import talismanLogo from "@/assets/hand-red-black.svg";
 
 export default function Navbar() {
   const {
@@ -27,7 +28,7 @@ export default function Navbar() {
   return (
     <nav className="flex items-center justify-between bg-gray-800 p-4 text-white">
       <img
-        src="/src/assets/hand-red-black.svg"
+        src={talismanLogo}
         alt="Logo"
         className="h-8 inline mr-2 cursor-pointer"
       />
